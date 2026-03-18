@@ -1,0 +1,41 @@
+.admin-container {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Area */
+.admin-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.admin-content-inner {
+  padding: 1.5rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .admin-content-inner {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+/* Utilities */
+@media (max-width: 767px) {
+  .desktop-only { display: none !important; }
+}
+
+@media (min-width: 768px) {
+  .mobile-only { display: none !important; }
+}
+
+.text-muted { color: var(--text-secondary); }
+.fw-semibold { font-weight: 600; }
+.text-sm { font-size: 0.875rem; }
+.ml-4 { margin-left: 1rem; }

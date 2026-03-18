@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Admin master — siempre tiene acceso
+    function isMasterAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'synaptixenterprise@gmail.com';
+    }
+
+    // Admin dinámico: master + hasta 2 correos extra guardados en settings/store.adminEmails
+    function isAdmin() {
+      return isMasterAdmin()
+        || (request.auth != null
+            && request.auth.token.email in get(/databases/$(database)/documents/settings/store).data.adminEmails);
+    }
+
+    // Products — lectura pública, escritura admin
+    match /products/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Categories — lectura pública, escritura admin
+    match /categories/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Settings — lectura pública (para leer admins extra, moneda, etc), escritura admin
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isMasterAdmin()
+        || (request.auth != null
+            && request.auth.token.email in resource.data.adminEmails);
+    }
+
+    // Orders — cualquiera puede crear (checkout), admin puede leer/actualizar
+    match /orders/{docId} {
+      allow create: if true;
+      allow read, update: if isAdmin();
+    }
+
+    // Visits — cualquiera puede crear (tracking), admin puede leer
+    match /visits/{docId} {
+      allow create: if true;
+      allow read: if isAdmin();
+    }
+  }
+}

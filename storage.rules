@@ -1,0 +1,23 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isMasterAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'synaptixenterprise@gmail.com';
+    }
+
+    function isAdmin() {
+      return isMasterAdmin()
+        || (request.auth != null
+            && request.auth.token.email in firestore.get(/databases/(default)/documents/settings/store).data.adminEmails);
+    }
+
+    match /{allPaths=**} {
+      // Lectura pública (imágenes de productos)
+      allow read: if true;
+      // Escritura solo admins
+      allow write: if isAdmin();
+    }
+  }
+}

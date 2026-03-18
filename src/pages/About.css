@@ -1,0 +1,126 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero */
+.about-hero {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-top: calc(var(--nav-height) * -1); /* Full bleed under navbar */
+}
+
+.about-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--bg-primary);
+}
+
+.about-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.about-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Fija overlay oscuro para que siempre contraste con el texto blanco */
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 10;
+  padding-top: var(--nav-height);
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.about-hero-content h1,
+.about-hero-content p {
+  color: #ffffff !important;
+}
+
+/* Grillas Alternadas */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+}
+
+.about-grid.reverse > .about-text-block {
+  order: 1;
+}
+
+.about-grid.reverse > .about-image-block {
+  order: 0;
+}
+
+@media (min-width: 1024px) {
+  .about-grid.reverse > .about-text-block { order: 0; }
+  .about-grid.reverse > .about-image-block { order: 1; }
+}
+
+/* Bloques de Imagenes */
+.about-image-block {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow: var(--shadow-lg);
+}
+
+.about-image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.about-image-block:hover img {
+  transform: scale(1.03);
+}
+
+.rounded-image {
+  border-radius: var(--radius-lg);
+}
+
+/* Lista de Valores */
+.about-values-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-values-list li {
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--text-primary);
+}
+
+/* Utilidades para la página */
+.opacity-90 { opacity: 0.9; }
+.max-w-2xl { max-width: 42rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }

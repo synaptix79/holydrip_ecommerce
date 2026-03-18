@@ -1,0 +1,194 @@
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid transparent;
+  z-index: 100;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+  transform: translateY(0);
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
+}
+
+.navbar-scrolled {
+  border-bottom-color: var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.navbar-logo-container {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Permite que tome el espacio a la izquierda alineando con flexbox */
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 101;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+/* Desktop Links */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: center; /* En desktop los links van al medio */
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+/* Admin Temporal Link */
+.admin-temp-link {
+  color: #ff3366 !important;
+  font-weight: 800 !important;
+  animation: pulse-alert 1.5s infinite;
+  border-bottom: none !important;
+}
+
+@keyframes pulse-alert {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); color: #ff0044; }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Actions */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Alineados a la derecha */
+  gap: 0.25rem;
+  z-index: 101;
+  flex: 1;
+}
+
+.navbar-icon-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  transition: background-color var(--transition-fast);
+}
+
+.navbar-icon-btn:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* Cart Badge */
+.cart-btn {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--accent-color);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--bg-primary);
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition-normal);
+  padding-top: var(--nav-height);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid var(--border-color);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+}
+
+.mobile-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-menu-inner {
+  padding: 2rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrado para mobile */
+  gap: 1.5rem;
+}
+
+.mobile-nav-link {
+  font-weight: 600;
+  font-size: 1.5rem !important; /* Ligeramente más chico para el panel elegante */
+  border-bottom: none; /* Quitamos linea por defecto, estética más apple */
+}
+
+
+
+/* Modificadores Mobile */
+@media (max-width: 767px) {
+  .border-left-mobile {
+     gap: 0rem;
+  }
+}
+
+/* Responsive Utilities */
+@media (min-width: 768px) {
+  .mobile-only { display: none !important; }
+}
+
+@media (max-width: 767px) {
+  .desktop-only { display: none !important; }
+}

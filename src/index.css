@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* ========================================================
+     APPLE-LIKE DESIGN SYSTEM
+     ======================================================== */
+
+  /* Light Theme (Default) */
+  --bg-primary: #fbfbfd;
+  --bg-secondary: #f5f5f7;
+  --bg-tertiary: #ffffff;
+  
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --text-tertiary: #424245;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-hover: rgba(0, 0, 0, 0.15);
+
+  --accent-color: #0071e3;
+  --accent-hover: #0077ed;
+  
+  --button-primary-bg: #1d1d1f;
+  --button-primary-text: #ffffff;
+  --button-primary-hover: #424245;
+
+  --widget-bg: rgba(255, 255, 255, 0.7);
+  --nav-bg: rgba(251, 251, 253, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Layout & Spacing */
+  --nav-height: 56px;
+  --max-width: 1200px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-slow: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Dark Theme */
+.dark {
+  --bg-primary: #000000;
+  --bg-secondary: #1c1c1e;
+  --bg-tertiary: #2c2c2e;
+  
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-tertiary: #a1a1a6;
+
+  --border-color: rgba(255, 255, 255, 0.15);
+  --border-color-hover: rgba(255, 255, 255, 0.25);
+
+  --accent-color: #2997ff;
+  --accent-hover: #147ce6;
+
+  --button-primary-bg: #ffffff;
+  --button-primary-text: #000000;
+  --button-primary-hover: #d2d2d7;
+
+  --widget-bg: rgba(28, 28, 30, 0.7);
+  --nav-bg: rgba(0, 0, 0, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.05);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* ========================================================
+   GLOBAL RESETS & BASE STYLES
+   ======================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ========================================================
+   UTILITIES
+   ======================================================== */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.glass-panel {
+  background: var(--widget-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Typography Helpers */
+.text-xs { font-size: 0.75rem; letter-spacing: 0.01em; }
+.text-sm { font-size: 0.875rem; letter-spacing: -0.01em; }
+.text-base { font-size: 1rem; letter-spacing: -0.015em; }
+.text-lg { font-size: 1.125rem; letter-spacing: -0.015em; }
+.text-xl { font-size: 1.25rem; letter-spacing: -0.02em; }
+.text-2xl { font-size: 1.5rem; letter-spacing: -0.02em; font-weight: 600; }
+.text-3xl { font-size: 1.875rem; letter-spacing: -0.02em; font-weight: 600; }
+.text-4xl { font-size: 2.25rem; letter-spacing: -0.025em; font-weight: 600; }
+.text-5xl { font-size: 3rem; letter-spacing: -0.025em; font-weight: 700; }
+
+.fw-normal { font-weight: 400; }
+.fw-medium { font-weight: 500; }
+.fw-semibold { font-weight: 600; }
+.fw-bold { font-weight: 700; }
+
+.text-muted { color: var(--text-secondary); }
