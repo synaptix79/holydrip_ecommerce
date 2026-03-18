@@ -46,9 +46,9 @@ export const Navbar = () => {
       <div className="navbar-container">
         
         <div className="navbar-logo-container">
-          <button className="navbar-logo text-white" aria-label="Volver arriba" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <Link to="/" className="navbar-logo text-white" aria-label="Ir al inicio" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'none' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img src="/images/logo.png" alt="Holy Drip Logo" style={{ height: '32px', filter: isDark ? 'invert(1)' : 'none' }} />
-          </button>
+          </Link>
         </div>
         
         <nav className="navbar-links desktop-only">

@@ -12,9 +12,9 @@ export const Footer = () => {
         <div className="footer-grid">
           
           <div className="footer-brand">
-            <button className="footer-logo mb-4 inline-block" aria-label="Volver arriba" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <img src="/images/logo.png" alt="Holy Drip Logo" style={{ height: '40px' }} />
-            </button>
+            <Link to="/" className="footer-logo mb-4 inline-block" aria-label="Ir al inicio" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', textDecoration: 'none' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <img src="/images/logo.png" alt="Holy Drip Logo" style={{ height: '40px', filter: isDark ? 'invert(1)' : 'none' }} />
+            </Link>
             <p className="text-muted max-w-sm mt-4">
               Básicos premium diseñados para la vida diaria.
             </p>
