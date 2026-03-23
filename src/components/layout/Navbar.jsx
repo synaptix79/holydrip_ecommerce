@@ -3,11 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Search, Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useCart } from '../../context/CartContext';
+import { useData } from '../../context/DataContext';
 import './Navbar.css';
 
 export const Navbar = () => {
   const { isDark, toggleTheme } = useTheme();
   const { totalItems, toggleCart } = useCart();
+  const { categories } = useData();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -53,9 +55,11 @@ export const Navbar = () => {
         
         <nav className="navbar-links desktop-only">
           <Link to="/shop" className="nav-link">Tienda</Link>
-          <Link to="/shop?category=remeras" className="nav-link">Remeras</Link>
-          <Link to="/shop?category=bolsos" className="nav-link">Bolsos</Link>
-          <Link to="/shop?category=stickers" className="nav-link">Stickers</Link>
+          {categories.map((c) => (
+            <Link key={c.id} to={`/shop?category=${c.id}`} className="nav-link">
+              {c.name}
+            </Link>
+          ))}
           <Link to="/nosotros" className="nav-link">Nosotros</Link>
         </nav>
 
@@ -81,11 +85,13 @@ export const Navbar = () => {
 
       <div className={`mobile-menu ${isMobileMenuOpen ? 'is-open' : ''}`}>
         <div className="mobile-menu-inner">
-          <Link to="/shop" className="mobile-nav-link text-xl">Tienda</Link>
-          <Link to="/shop?category=remeras" className="mobile-nav-link text-xl">Remeras</Link>
-          <Link to="/shop?category=bolsos" className="mobile-nav-link text-xl">Bolsos</Link>
-          <Link to="/shop?category=stickers" className="mobile-nav-link text-xl">Stickers</Link>
-          <Link to="/nosotros" className="mobile-nav-link text-xl">Nosotros</Link>
+          <Link to="/shop" className="mobile-nav-link text-xl" onClick={() => setIsMobileMenuOpen(false)}>Tienda</Link>
+          {categories.map((c) => (
+            <Link key={c.id} to={`/shop?category=${c.id}`} className="mobile-nav-link text-xl" onClick={() => setIsMobileMenuOpen(false)}>
+              {c.name}
+            </Link>
+          ))}
+          <Link to="/nosotros" className="mobile-nav-link text-xl" onClick={() => setIsMobileMenuOpen(false)}>Nosotros</Link>
         </div>
       </div>
     </header>

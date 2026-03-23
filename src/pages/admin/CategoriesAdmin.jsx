@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useData } from '../../context/DataContext';
 import { Button } from '../../components/ui/Button';
-import { Plus, Edit3, Trash2, Search, X } from 'lucide-react';
+import { Plus, Edit3, Trash2, Search, X, Loader2 } from 'lucide-react';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../lib/firebase';
+import { compressImage } from '../../lib/imageCompressor';
 import './Admin.css';
 
 export const CategoriesAdmin = () => {
@@ -10,18 +13,26 @@ export const CategoriesAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentCategoryId, setCurrentCategoryId] = useState(null);
+  
   const [catName, setCatName] = useState('');
+  const [catImage, setCatImage] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const fileInputRef = useRef(null);
 
   const resetForm = () => {
     setCatName('');
+    setCatImage('');
     setIsEditing(false);
     setCurrentCategoryId(null);
+    setUploadError('');
   };
 
   const handleOpenAddModal = () => { resetForm(); setIsModalOpen(true); };
 
   const handleOpenEditModal = (cat) => {
     setCatName(cat.name);
+    setCatImage(cat.image || '');
     setIsEditing(true);
     setCurrentCategoryId(cat.id);
     setIsModalOpen(true);
@@ -39,15 +50,43 @@ export const CategoriesAdmin = () => {
     catch (err) { alert('Error: ' + err.message); }
   };
 
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError('');
+    
+    const { blob, error: compressError } = await compressImage(file);
+    if (compressError) {
+      setUploadError(compressError);
+      setUploading(false);
+      return;
+    }
+    
+    try {
+      const storageRef = ref(storage, `categories/${Date.now()}-${file.name.replace(/\\.[^.]+$/, '')}.jpg`);
+      const snapshot = await uploadBytes(storageRef, blob, { contentType: 'image/jpeg' });
+      const url = await getDownloadURL(snapshot.ref);
+      setCatImage(url);
+    } catch (err) {
+      setUploadError(`Error subiendo ${file.name}: ${err.message}`);
+    }
+    setUploading(false);
+  };
+
+  const removeImage = () => {
+    setCatImage('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!catName.trim()) return;
 
     try {
       if (isEditing) {
-        await updateCategory(currentCategoryId, { name: catName });
+        await updateCategory(currentCategoryId, { name: catName, image: catImage });
       } else {
-        await addCategory({ name: catName });
+        await addCategory({ name: catName, image: catImage });
       }
       setIsModalOpen(false);
       resetForm();
@@ -59,7 +98,7 @@ export const CategoriesAdmin = () => {
 
   const previewSlug = catName
     .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
@@ -99,6 +138,7 @@ export const CategoriesAdmin = () => {
             <table className="admin-table">
               <thead>
                 <tr>
+                  <th style={{ width: '60px' }}>Img</th>
                   <th>Nombre</th>
                   <th>Slug (ID)</th>
                   <th>Estado</th>
@@ -108,6 +148,15 @@ export const CategoriesAdmin = () => {
               <tbody>
                 {filteredCategories.map(cat => (
                   <tr key={cat.id}>
+                    <td>
+                      <div style={{ width: '40px', height: '40px', borderRadius: '4px', overflow: 'hidden', backgroundColor: 'var(--bg-secondary)' }}>
+                        {cat.image ? (
+                          <img src={cat.image} alt={cat.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '10px' }}>-</div>
+                        )}
+                      </div>
+                    </td>
                     <td className="fw-medium">{cat.name}</td>
                     <td><code style={{ fontSize: '0.8rem' }}>{cat.slug || cat.id}</code></td>
                     <td>
@@ -128,7 +177,7 @@ export const CategoriesAdmin = () => {
                   </tr>
                 ))}
                 {filteredCategories.length === 0 && (
-                  <tr><td colSpan="4" className="text-center py-8 text-muted">No se encontraron categorías.</td></tr>
+                  <tr><td colSpan="5" className="text-center py-8 text-muted">No se encontraron categorías.</td></tr>
                 )}
               </tbody>
             </table>
@@ -156,16 +205,43 @@ export const CategoriesAdmin = () => {
                   autoFocus
                 />
               </div>
+              
+              <div className="form-group mb-4">
+                <label className="text-sm fw-medium mb-2 block">Imagen Representativa</label>
+                <div className="flex gap-4 items-center">
+                  <div style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {catImage ? (
+                      <>
+                        <img src={catImage} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <button type="button" onClick={removeImage} style={{ position: 'absolute', top: '2px', right: '2px', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                          <X size={12} />
+                        </button>
+                      </>
+                    ) : (
+                       <span className="text-muted text-xs">Sin imagen</span>
+                    )}
+                  </div>
+                  <div>
+                    <button type="button" onClick={() => fileInputRef.current.click()} disabled={uploading} className="border-dashed border-2 rounded-md flex items-center justify-center gap-2 text-sm text-muted" style={{ padding: '0.5rem 1rem', cursor: 'pointer', background: 'transparent' }}>
+                      {uploading ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+                      {uploading ? 'Subiendo...' : 'Subir'}
+                    </button>
+                    <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
+                  </div>
+                </div>
+                {uploadError && <p className="text-xs mt-2" style={{ color: '#dc2626' }}>{uploadError}</p>}
+              </div>
+
               {!isEditing && (
                 <div className="form-group mb-6">
                   <label className="text-sm fw-medium mb-2 block">Slug (auto-generado)</label>
                   <input type="text" value={previewSlug} className="form-input w-full" disabled style={{ opacity: 0.6 }} />
-                  <p className="text-xs text-muted mt-1">Se genera automáticamente del nombre. Se usa como ID del documento y para filtrar en la URL.</p>
+                  <p className="text-xs text-muted mt-1">Se genera automáticamente del nombre.</p>
                 </div>
               )}
               <div className="modal-actions flex justify-end gap-3 mt-6">
                 <Button variant="ghost" type="button" onClick={() => setIsModalOpen(false)}>Cancelar</Button>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={uploading}>
                   {isEditing ? 'Actualizar' : 'Guardar Categoría'}
                 </Button>
               </div>
