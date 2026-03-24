@@ -8,13 +8,17 @@ export const About = () => {
   return (
     <div className="about-page">
       <SEOHead title="Nosotros" description="En Holy Drip creemos que la ropa es una forma de expresar lo que llevás por dentro. Conocé más sobre nuestra visión." />
+      
       {/* Hero Section */}
       <section className="about-hero">
         <div className="about-hero-bg">
           <img src="/images/Remera%20Negra.jpeg" alt="Holy Drip Lifestyle" className="about-hero-img" />
           <div className="about-overlay"></div>
         </div>
-        <div className="container about-hero-content text-center">
+        <div 
+          className="container about-hero-content" 
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+        >
           <a
             href="https://open.spotify.com/user/31r77qjepkzognla5o6pgbt2ceeu?si=yZDvJO1XSGy3ndEEcC7kRA"
             target="_blank"
@@ -26,36 +30,39 @@ export const About = () => {
             </svg>
             Holy Drip Playlist
           </a>
-          <h1 className="text-5xl fw-bold text-white mb-6" style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h1 className="text-5xl fw-bold text-white mb-6" style={{ maxWidth: '800px', margin: '0 auto', lineHeight: '1.2' }}>
             Vestí con propósito
           </h1>
         </div>
       </section>
 
       {/* Main Copy Section */}
-      <section className="section-padding bg-primary">
-        <div className="container" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <p className="text-xl fw-bold text-primary mb-8" style={{ fontSize: '1.4rem', lineHeight: '1.8' }}>
+      <section className="section-padding bg-primary flex flex-col items-center">
+        <div 
+          className="container" 
+          style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}
+        >
+          <p className="text-xl fw-bold text-primary" style={{ fontSize: '1.5rem', lineHeight: '1.6' }}>
             "En Holy Drip creemos que la ropa es una forma de expresar lo que llevás por dentro."
           </p>
-          <p className="text-xl text-muted mb-6 mt-8" style={{ lineHeight: '1.7' }}>
+          <p className="text-xl text-muted" style={{ lineHeight: '1.8' }}>
             Por eso creamos prendas y accesorios con propósito: para reflejar tu fe, tu identidad y tu esencia con una estética minimalista, materiales de calidad y confección cuidada.
           </p>
-          <p className="text-lg text-muted mb-6">
+          <p className="text-lg text-muted" style={{ lineHeight: '1.8' }}>
             Cada diseño lleva versículos y frases que inspiran y fortalecen. Es una forma de llevar la Palabra a lo cotidiano — en la universidad, en el trabajo, en la calle.
           </p>
-          <p className="text-xl text-primary fw-semibold mt-10">
+          <p className="text-xl text-primary fw-semibold mt-4" style={{ fontSize: '1.25rem', padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-md)' }}>
             Holy Drip es más que una marca. Transformamos la ropa en testimonio. 🫂✝️
           </p>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="section-padding about-cta" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-        <div className="container text-center">
-          <h2 className="text-4xl fw-bold mb-6">Elevá tu estilo diario</h2>
-          <p className="text-lg text-muted mb-8 max-w-2xl mx-auto">
-            Explora nuestra colección y conectá tu guardarropa con tu esencia.
+      <section className="section-padding about-cta" style={{ backgroundColor: 'var(--bg-secondary)', textAlign: 'center' }}>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <h2 className="text-4xl fw-bold mb-4">Elevá tu estilo diario</h2>
+          <p className="text-lg text-muted mb-8 max-w-2xl mx-auto" style={{ lineHeight: '1.6' }}>
+            Explorá nuestra colección y conectá tu guardarropa con tu esencia.
           </p>
           <Link to="/shop">
             <Button variant="primary" size="lg">Ver Catálogo</Button>
@@ -65,3 +72,4 @@ export const About = () => {
     </div>
   );
 };
+
