@@ -12,6 +12,13 @@ export const ProductDetail = () => {
   const { addToCart } = useCart();
   const { products, settings } = useData();
   
+  const parseGs = (val, defaultVal) => {
+    if (val === undefined || val === null || val === '') return defaultVal;
+    const cleaned = String(val).replace(/\D/g, '');
+    const num = Number(cleaned);
+    return cleaned === '' ? defaultVal : num;
+  };
+
   const product = (products || []).find(p => p.id === id || p.slug === id);
   
   const [activeImage, setActiveImage] = useState(0);
@@ -168,7 +175,7 @@ export const ProductDetail = () => {
               </Button>
               
               <div className="shipping-info mt-6 text-sm text-secondary">
-                <p>Envío rápido gratuito en compras superiores a Gs. {(Number(settings?.freeShippingThreshold) || 250000).toLocaleString('es-PY')}.</p>
+                <p>Envío rápido gratuito en compras superiores a Gs. {(parseGs(settings?.freeShippingThreshold, 250000)).toLocaleString('es-PY')}.</p>
               </div>
             </div>
 

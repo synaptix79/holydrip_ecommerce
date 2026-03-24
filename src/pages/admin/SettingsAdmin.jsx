@@ -29,6 +29,8 @@ export const SettingsAdmin = () => {
       setFormData(prev => ({
         ...prev,
         ...settings,
+        shippingCost: settings.shippingCost !== undefined ? String(settings.shippingCost).replace(/\D/g, '') : prev.shippingCost,
+        freeShippingThreshold: settings.freeShippingThreshold !== undefined ? String(settings.freeShippingThreshold).replace(/\D/g, '') : prev.freeShippingThreshold,
         adminEmails: settings.adminEmails || ['', ''],
         notifications: {
           ...prev.notifications,
@@ -41,9 +43,11 @@ export const SettingsAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Limpiar emails vacíos antes de guardar
+      // Limpiar emails vacíos antes de guardar y limpiar números
       const cleanedData = {
         ...formData,
+        shippingCost: Number(String(formData.shippingCost).replace(/\D/g, '') || 0),
+        freeShippingThreshold: Number(String(formData.freeShippingThreshold).replace(/\D/g, '') || 0),
         adminEmails: formData.adminEmails.filter(e => e && e.trim())
       };
       await updateSettings(cleanedData);

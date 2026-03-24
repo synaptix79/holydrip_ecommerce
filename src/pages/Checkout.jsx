@@ -16,8 +16,15 @@ export const Checkout = () => {
   const [customerAddress, setCustomerAddress] = useState('');
   const [customerRUC, setCustomerRUC] = useState('');
 
-  const shippingThreshold = Number(settings?.freeShippingThreshold) || 250000;
-  const shippingCost = Number(settings?.shippingCost) || 25000;
+  const parseGs = (val, defaultVal) => {
+    if (val === undefined || val === null || val === '') return defaultVal;
+    const cleaned = String(val).replace(/\D/g, '');
+    const num = Number(cleaned);
+    return cleaned === '' ? defaultVal : num;
+  };
+
+  const shippingThreshold = parseGs(settings?.freeShippingThreshold, 250000);
+  const shippingCost = parseGs(settings?.shippingCost, 25000);
   const shipping = subtotal >= shippingThreshold ? 0 : shippingCost;
   const total = subtotal + shipping;
   const currency = settings?.currency || 'Gs.';
