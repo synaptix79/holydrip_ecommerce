@@ -3,8 +3,12 @@ import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebas
 import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
 
-// Este correo SIEMPRE tiene acceso — no se puede eliminar desde la UI
-const MASTER_EMAIL = 'synaptixenterprise@gmail.com';
+// Estos correos SIEMPRE tienen acceso — no se pueden eliminar desde la UI
+const MASTER_EMAILS = [
+  'synaptixenterprise@gmail.com',
+  'fioremazzei0@gmail.com',
+  'holydriparaguay@gmail.com'
+];
 
 const AuthContext = createContext();
 
@@ -18,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
-  const [allowedEmails, setAllowedEmails] = useState([MASTER_EMAIL]);
+  const [allowedEmails, setAllowedEmails] = useState(MASTER_EMAILS);
 
   // Escuchar settings/store para obtener admins extra en tiempo real
   useEffect(() => {
@@ -26,11 +30,11 @@ export const AuthProvider = ({ children }) => {
       if (snap.exists()) {
         const data = snap.data();
         const extras = (data.adminEmails || []).filter(e => e && e.trim());
-        setAllowedEmails([MASTER_EMAIL, ...extras]);
+        setAllowedEmails([...MASTER_EMAILS, ...extras]);
       }
     }, () => {
-      // Si falla la lectura (e.g. rules), al menos el master funciona
-      setAllowedEmails([MASTER_EMAIL]);
+      // Si falla la lectura (e.g. rules), al menos los master funcionan
+      setAllowedEmails(MASTER_EMAILS);
     });
     return () => unsub();
   }, []);

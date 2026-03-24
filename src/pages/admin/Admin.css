@@ -391,3 +391,9 @@
 .animate-spin {
   animation: spin 1s linear infinite;
 }
+
+/* Fix `<option>` visibility in Dark Mode browsers */
+.dark option {
+  background-color: var(--bg-primary, #1a1a1a);
+  color: var(--text-primary, #ffffff);
+}

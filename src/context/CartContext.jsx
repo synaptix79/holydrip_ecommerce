@@ -19,13 +19,25 @@ export const CartProvider = ({ children }) => {
   const addToCart = (product, quantity = 1, size, color, preventOpen = false) => {
     setCart(prevCart => {
       const existingProductIndex = prevCart.findIndex(
-        item => item.id === product.id && item.size === size && item.color === color
+        item => item.id === product.id && item.color === color
       );
       
       if (existingProductIndex >= 0) {
-        // Increment quantity if identical product+size+color exists
+        // Increment quantity and append size if identical product+color exists
         const updatedCart = [...prevCart];
-        updatedCart[existingProductIndex].quantity += quantity;
+        const existingItem = updatedCart[existingProductIndex];
+        
+        // Split existing sizes into an array to check for duplicates
+        let sizes = existingItem.size ? existingItem.size.split(', ') : [];
+        if (size && !sizes.includes(size)) {
+            sizes.push(size);
+        }
+        
+        updatedCart[existingProductIndex] = {
+            ...existingItem,
+            quantity: existingItem.quantity + quantity,
+            size: sizes.join(', ')
+        };
         return updatedCart;
       }
       
@@ -41,7 +53,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = (productId, size, color) => {
     setCart(prevCart => 
-      prevCart.filter(item => !(item.id === productId && item.size === size && item.color === color))
+      prevCart.filter(item => !(item.id === productId && item.color === color))
     );
   };
 
@@ -53,7 +65,7 @@ export const CartProvider = ({ children }) => {
     
     setCart(prevCart => 
       prevCart.map(item => 
-        (item.id === productId && item.size === size && item.color === color)
+        (item.id === productId && item.color === color)
           ? { ...item, quantity: newQuantity }
           : item
       )

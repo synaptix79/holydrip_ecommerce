@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useData } from '../../context/DataContext';
 import { Button } from '../ui/Button';
 import { X, Minus, Plus, ShoppingBag } from 'lucide-react';
 import './CartDrawer.css';
@@ -14,8 +15,21 @@ export const CartDrawer = () => {
     removeFromCart, 
     subtotal 
   } = useCart();
+  const { settings } = useData();
   
   const navigate = useNavigate();
+
+  const parseGs = (val, defaultVal) => {
+    if (val === undefined || val === null || val === '') return defaultVal;
+    const cleaned = String(val).replace(/\D/g, '');
+    const num = Number(cleaned);
+    return cleaned === '' ? defaultVal : num;
+  };
+
+  const shippingThreshold = parseGs(settings?.freeShippingThreshold, 250000);
+  const shippingCost = parseGs(settings?.shippingCost, 25000);
+  const shipping = subtotal >= shippingThreshold ? 0 : shippingCost;
+  const total = subtotal + shipping;
 
   useEffect(() => {
     if (isCartOpen) {
@@ -123,12 +137,19 @@ export const CartDrawer = () => {
 
         {cart.length > 0 && (
           <div className="cart-footer">
-            <div className="cart-subtotal">
+            <div className="cart-subtotal" style={{ marginBottom: '8px' }}>
               <span className="text-muted">Subtotal</span>
-              <span className="fw-semibold text-lg">Gs. {subtotal.toLocaleString('es-PY')}</span>
+              <span className="fw-medium text-md">Gs. {subtotal.toLocaleString('es-PY')}</span>
             </div>
-            <p className="text-xs text-muted mb-4">El envío y los impuestos se calculan en el checkout.</p>
-            <Button variant="primary" size="lg" fullWidth onClick={handleCheckout}>
+            <div className="cart-subtotal" style={{ marginBottom: '16px' }}>
+              <span className="text-muted">Envío</span>
+              <span className="fw-medium text-md">{shipping === 0 ? 'Gratis' : `Gs. ${shipping.toLocaleString('es-PY')}`}</span>
+            </div>
+            <div className="cart-subtotal" style={{ borderTop: '1px solid var(--border-color)', paddingTop: '12px' }}>
+              <span className="text-muted fw-semibold">Total</span>
+              <span className="fw-bold text-xl">Gs. {total.toLocaleString('es-PY')}</span>
+            </div>
+            <Button variant="primary" size="lg" fullWidth onClick={handleCheckout} className="mt-4">
               Proceder al Pago
             </Button>
           </div>
