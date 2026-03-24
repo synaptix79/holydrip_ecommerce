@@ -3,6 +3,16 @@
   flex-direction: column;
 }
 
+.section-padding {
+  padding: 4rem 0; /* Base padding for mobile */
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 8rem 0; /* Huge breathing room on desktop */
+  }
+}
+
 /* Hero */
 .about-hero {
   position: relative;
