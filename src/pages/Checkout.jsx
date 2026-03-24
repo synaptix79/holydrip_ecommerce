@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useData } from '../context/DataContext';
 import { Button } from '../components/ui/Button';
 import { MessageSquare, CreditCard, User, Phone } from 'lucide-react';
+import { SEOHead } from '../components/common/SEOHead';
 import './Checkout.css';
 
 export const Checkout = () => {
@@ -123,6 +124,7 @@ export const Checkout = () => {
 
   return (
     <div className="checkout-page">
+      <SEOHead title="Checkout | Finalizar Compra" description="Finalizá tu compra de forma segura y coordiná el envío de tus prendas Holy Drip." />
       <div className="container">
         <h1 className="text-3xl mb-8">Confirmar Pedido</h1>
 

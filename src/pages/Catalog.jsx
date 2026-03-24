@@ -4,6 +4,7 @@ import { ProductCard } from '../components/ui/ProductCard';
 import { Select } from '../components/ui/Select';
 import { useData } from '../context/DataContext';
 import { SlidersHorizontal } from 'lucide-react';
+import { SEOHead } from '../components/common/SEOHead';
 import './Catalog.css';
 
 export const Catalog = () => {
@@ -61,6 +62,7 @@ export const Catalog = () => {
 
   return (
     <div className="catalog-page">
+      <SEOHead title="Tienda" description="Explorá nuestra colección completa de ropa y accesorios. Nuevos lanzamientos." />
       <div className="container">
         
         {/* Page Header */}

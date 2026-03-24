@@ -4,6 +4,7 @@ import { useData } from '../context/DataContext';
 import { useCart } from '../context/CartContext';
 import { Button } from '../components/ui/Button';
 import { ChevronLeft, ChevronRight, Minus, Plus } from 'lucide-react';
+import { SEOHead } from '../components/common/SEOHead';
 import './ProductDetail.css';
 
 export const ProductDetail = () => {
@@ -53,6 +54,11 @@ export const ProductDetail = () => {
 
   return (
     <div className="product-detail-page">
+      <SEOHead 
+        title={product.name} 
+        description={product.description || `Comprá ${product.name} en Holy Drip. Envíos a todo el país.`}
+        image={product.images[0]?.url || product.images[0]} 
+      />
       <div className="container">
         
         {/* Breadcrumbs */}

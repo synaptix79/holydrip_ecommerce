@@ -1,4 +1,28 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?shopholydrip\\.com"
+        }
+      ],
+      "destination": "https://holydripofficial.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?agbtg\\.com"
+        }
+      ],
+      "destination": "https://holydripofficial.com/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

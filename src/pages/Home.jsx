@@ -4,6 +4,7 @@ import { Button } from '../components/ui/Button';
 import { ProductCard } from '../components/ui/ProductCard';
 import { bibleVerses } from '../data/bibleVerses';
 import { useData } from '../context/DataContext';
+import { SEOHead } from '../components/common/SEOHead';
 import './Home.css';
 
 export const Home = () => {
@@ -41,6 +42,7 @@ export const Home = () => {
 
   return (
     <div className="home-page">
+      <SEOHead title="Holy Drip" description="Holy Drip. Vestí con propósito. Ropa Cristiana Urbana y minimalista con estética moderna y versículos que inspiran." />
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-bg">

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
+import { SEOHead } from '../components/common/SEOHead';
 import './About.css';
 
 export const About = () => {
   return (
     <div className="about-page">
+      <SEOHead title="Nosotros" description="En Holy Drip creemos que la ropa es una forma de expresar lo que llevás por dentro. Conocé más sobre nuestra visión." />
       {/* Hero Section */}
       <section className="about-hero">
         <div className="about-hero-bg">
