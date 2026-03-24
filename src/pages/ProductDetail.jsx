@@ -10,7 +10,7 @@ export const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { products } = useData();
+  const { products, settings } = useData();
   
   const product = (products || []).find(p => p.id === id || p.slug === id);
   
@@ -168,8 +168,7 @@ export const ProductDetail = () => {
               </Button>
               
               <div className="shipping-info mt-6 text-sm text-secondary">
-                <p>Envío rápido gratuito en compras superiores a Gs. 250.000.</p>
-                <p>Devoluciones gratuitas dentro de los primeros 14 días.</p>
+                <p>Envío rápido gratuito en compras superiores a Gs. {(Number(settings?.freeShippingThreshold) || 250000).toLocaleString('es-PY')}.</p>
               </div>
             </div>
 

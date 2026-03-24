@@ -14,6 +14,7 @@ export const Checkout = () => {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
+  const [customerRUC, setCustomerRUC] = useState('');
 
   const shippingThreshold = Number(settings?.freeShippingThreshold) || 250000;
   const shippingCost = Number(settings?.shippingCost) || 25000;
@@ -39,6 +40,7 @@ export const Checkout = () => {
       customerName: customerName.trim(),
       customerPhone: customerPhone.trim(),
       customerAddress: customerAddress.trim() || null,
+      customerRUC: customerRUC.trim() || null,
       items: cart.map(item => ({
         id: item.id,
         name: item.name,
@@ -71,6 +73,9 @@ export const Checkout = () => {
     message += `*Teléfono:* ${customerPhone.trim()}\n`;
     if (customerAddress.trim()) {
       message += `*Dirección:* ${customerAddress.trim()}\n`;
+    }
+    if (customerRUC.trim()) {
+      message += `*RUC:* ${customerRUC.trim()}\n`;
     }
     message += `*ID:* #${orderId.slice(-6).toUpperCase()}\n`;
     message += `\n*Detalle del pedido:*\n\n`;
@@ -144,7 +149,7 @@ export const Checkout = () => {
                   required
                 />
               </div>
-              <div className="form-group mb-8">
+              <div className="form-group mb-4">
                 <label className="text-sm fw-medium mb-2 block">Dirección de entrega (opcional)</label>
                 <input
                   type="text"
@@ -152,6 +157,16 @@ export const Checkout = () => {
                   value={customerAddress}
                   onChange={e => setCustomerAddress(e.target.value)}
                   placeholder="Ciudad, barrio, calle..."
+                />
+              </div>
+              <div className="form-group mb-8">
+                <label className="text-sm fw-medium mb-2 block">RUC/CI para Facturación (opcional)</label>
+                <input
+                  type="text"
+                  className="form-input w-full"
+                  value={customerRUC}
+                  onChange={e => setCustomerRUC(e.target.value)}
+                  placeholder="Ej: 80012345-6 / 4567890"
                 />
               </div>
 
@@ -179,10 +194,10 @@ export const Checkout = () => {
                 size="lg"
                 fullWidth
                 loading={isSubmitting}
-                style={{ height: 'auto', minHeight: '60px', fontSize: '1rem', whiteSpace: 'normal', wordBreak: 'break-word', padding: '0.75rem', lineHeight: '1.4' }}
+                style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box', height: 'auto', minHeight: '60px', fontSize: '1rem', whiteSpace: 'normal', wordBreak: 'break-word', padding: '0.75rem', lineHeight: '1.4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <MessageSquare size={20} style={{ marginRight: '8px' }} />
-                Confirmar Pedido por WhatsApp
+                <MessageSquare size={20} style={{ marginRight: '8px', flexShrink: 0 }} />
+                <span style={{ flex: 1 }}>Confirmar Pedido por WhatsApp</span>
               </Button>
             </div>
           </div>

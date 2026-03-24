@@ -92,6 +92,7 @@ export const OrdersAdmin = () => {
                   <th>Fecha</th>
                   <th>Cliente</th>
                   <th>Teléfono</th>
+                  <th>RUC</th>
                   <th>Items</th>
                   <th>Total</th>
                   <th>Estado</th>
@@ -109,6 +110,7 @@ export const OrdersAdmin = () => {
                     </td>
                     <td className="fw-medium">{order.customerName || 'Desconocido'}</td>
                     <td className="text-muted">{order.customerPhone || '-'}</td>
+                    <td className="text-muted">{order.customerRUC || '-'}</td>
                     <td className="text-sm text-muted">
                       {Array.isArray(order.items) ? `${order.items.length} artículo${order.items.length !== 1 ? 's' : ''}` : '-'}
                     </td>
@@ -130,7 +132,7 @@ export const OrdersAdmin = () => {
                 ))}
                 {filteredOrders.length === 0 && (
                   <tr>
-                    <td colSpan="8" className="text-center py-8 text-muted">
+                    <td colSpan="9" className="text-center py-8 text-muted">
                       {searchQuery || statusFilter !== 'all'
                         ? 'No se encontraron pedidos con ese filtro.'
                         : 'Aún no hay pedidos registrados. Se guardarán automáticamente cuando un cliente confirme por WhatsApp.'}

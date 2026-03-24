@@ -34,26 +34,16 @@ export const About = () => {
       <section className="section-padding bg-primary">
         <div className="container" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
           <p className="text-xl fw-bold text-primary mb-8" style={{ fontSize: '1.4rem', lineHeight: '1.8' }}>
-            "Creemos que la ropa es una forma de expresar lo que llevás por dentro. Por eso todo lo que creamos está diseñado con un propósito; reflejar tu esencia, tu fe y tu identidad, combinando materiales de primera línea, confección impecable y una estética minimalista que perdura temporada tras temporada."
+            "En Holy Drip creemos que la ropa es una forma de expresar lo que llevás por dentro."
           </p>
-          <p className="text-xl text-muted mb-6 mt-8">
-            Holy Drip es una tienda donde creamos prendas y accesorios con versículos bíblicos y frases que inspiran, fortalecen y recuerdan quiénes somos en Cristo. ❤️‍🔥
-
-            Nuestro Lema es claro: VESTI CON PROPOSITO.
-
-            Cada prenda es una forma de llevar la Palabra a lo cotidiano — en la universidad, en el trabajo, en la calle.
-
-            Además, todas nuestras remeras son 100% personalizables.
-
-            En el catálogo encontrarás propuestas visuales, pero cada diseño puede modificarse según tu preferencia.
-
-            Holy Drip es más que una tienda online. Es una marca que transforma ropa en testimonio. 🫂✝️
+          <p className="text-xl text-muted mb-6 mt-8" style={{ lineHeight: '1.7' }}>
+            Por eso creamos prendas y accesorios con propósito: para reflejar tu fe, tu identidad y tu esencia con una estética minimalista, materiales de calidad y confección cuidada.
           </p>
           <p className="text-lg text-muted mb-6">
-            Cada prenda es una forma de llevar tu identidad a lo cotidiano — en la universidad, en el trabajo, en la calle.
+            Cada diseño lleva versículos y frases que inspiran y fortalecen. Es una forma de llevar la Palabra a lo cotidiano — en la universidad, en el trabajo, en la calle.
           </p>
           <p className="text-xl text-primary fw-semibold mt-10">
-            Holy Drip es más que una marca. Transformamos la ropa en expresión.
+            Holy Drip es más que una marca. Transformamos la ropa en testimonio. 🫂✝️
           </p>
         </div>
       </section>
