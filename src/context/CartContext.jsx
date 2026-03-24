@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product, quantity = 1, size, color) => {
+  const addToCart = (product, quantity = 1, size, color, preventOpen = false) => {
     setCart(prevCart => {
       const existingProductIndex = prevCart.findIndex(
         item => item.id === product.id && item.size === size && item.color === color
@@ -33,8 +33,10 @@ export const CartProvider = ({ children }) => {
       return [...prevCart, { ...product, quantity, size, color }];
     });
     
-    // Auto open cart on add
-    setIsCartOpen(true);
+    // Auto open cart on add (unless prevented)
+    if (!preventOpen) {
+      setIsCartOpen(true);
+    }
   };
 
   const removeFromCart = (productId, size, color) => {

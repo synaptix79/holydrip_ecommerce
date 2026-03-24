@@ -266,11 +266,11 @@
   position: relative;
   z-index: 10;
   padding: 0.6rem 2.5rem;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 50px;
-  color: #000;
+  color: #000 !important;
   text-decoration: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform var(--transition-fast), background-color var(--transition-fast);
@@ -278,12 +278,13 @@
 
 .category-card:hover .category-content {
   transform: scale(1.05);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.95) !important;
 }
 
 .category-content h3 {
   margin: 0;
   font-size: 1.1rem;
+  color: #000 !important;
 }
 
 

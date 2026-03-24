@@ -10,7 +10,7 @@ export const Home = () => {
   const { products, categories } = useData();
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
   const [randomVerse, setRandomVerse] = useState('');
-  
+
   const heroImages = [
     "/images/Remera%20Marron%20Claro%20H%20Frente.jpeg",
     "/images/Remera%20Negra.jpeg",
@@ -45,34 +45,42 @@ export const Home = () => {
       <section className="hero-section">
         <div className="hero-bg">
           {heroImages.map((img, idx) => (
-            <img 
+            <img
               key={idx}
-              src={img} 
-              alt={`Fondo de portada ${idx + 1}`} 
+              src={img}
+              alt={`Fondo de portada ${idx + 1}`}
               className={`hero-img ${idx === currentHeroIndex ? 'active' : ''}`}
             />
           ))}
           <div className="hero-overlay"></div>
         </div>
-        
+
         <div className="container hero-content">
           <div className="hero-verse-container">
             {randomVerse && (
               <div className="verse-block glass-panel">
-                 <p className="verse-text">{randomVerse.split(' — ')[1]}</p>
-                 <span className="verse-ref">{randomVerse.split(' — ')[0]}</span>
+                <p className="verse-text">{randomVerse.split(' — ')[1]}</p>
+                <span className="verse-ref">{randomVerse.split(' — ')[0]}</span>
               </div>
             )}
           </div>
-          <h1 className="hero-title text-5xl">Vestí con<br/>propósito.</h1>
-          <p className="hero-subtitle text-lg">Indumentaria premium diseñada para el guardarropa moderno y minimalista.</p>
+          <h1 className="hero-title text-5xl">Vestí con<br />propósito.</h1>
+          <p className="hero-subtitle text-lg">Indumentaria Premium diseñada para reflejar tu esencia y propósito</p>
           <div className="hero-actions">
             <Link to="/shop">
               <Button variant="primary" size="lg">Ver Colección</Button>
             </Link>
-            <Link to="/shop?category=new">
-              <Button variant="secondary" className="glass-btn" size="lg">Recién Llegado</Button>
-            </Link>
+            <Button 
+              variant="secondary" 
+              className="glass-btn" 
+              size="lg"
+              onClick={() => {
+                const el = document.getElementById('new-arrivals');
+                if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
+              Recién Llegado
+            </Button>
           </div>
         </div>
       </section>
@@ -84,10 +92,10 @@ export const Home = () => {
             <h2 className="text-3xl">Vestí con proposito</h2>
             <Link to="/shop" className="text-sm fw-medium link-with-arrow">Ver Todo</Link>
           </div>
-          
+
           <div className="product-grid">
             {featuredProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} showQuickAdd={false} />
             ))}
             {featuredProducts.length === 0 && (
               <p className="text-muted text-sm">Aún no hay productos destacados.</p>
@@ -106,8 +114,8 @@ export const Home = () => {
                 const imgUrl = category.image || categoryFallbackImages[category.id] || '/images/Remera%20Blanca%20A.jpeg';
                 return (
                   <Link to={`/shop?category=${category.id}`} key={category.id} className="category-card">
-                    <img 
-                      src={imgUrl} 
+                    <img
+                      src={imgUrl}
                       alt={category.name}
                       className="category-img"
                     />
@@ -129,19 +137,16 @@ export const Home = () => {
             <div className="brand-text">
               <h2 className="text-4xl">La Filosofía Holy Drip</h2>
               <p className="text-lg text-muted mt-4">
-                Creemos en eliminar lo innecesario. Todo lo que creamos está
-                diseñado con un propósito, combinando materiales de primera línea, 
-                confección impecable y una estética minimalista que perdura temporada 
-                tras temporada.
+                Creemos que la ropa es una forma de expresar lo que llevás por dentro. Por eso todo lo que creamos está diseñado con un propósito; reflejar tu esencia, tu fe y tu identidad, combinando materiales de primera línea, confección impecable y una estética minimalista que perdura temporada tras temporada.
               </p>
               <Link to="/nosotros" className="mt-8 inline-block">
                 <Button variant="ghost">Descubre Nuestra Historia</Button>
               </Link>
             </div>
             <div className="brand-image-wrap">
-              <img 
-                src="/images/Remera%20Blanca%20A.jpeg" 
-                alt="Identidad de la marca Holy Drip" 
+              <img
+                src="/images/Remera%20Blanca%20A.jpeg"
+                alt="Identidad de la marca Holy Drip"
                 className="brand-img"
               />
             </div>
@@ -150,14 +155,14 @@ export const Home = () => {
       </section>
 
       {/* New Arrivals */}
-      <section className="section-padding">
+      <section id="new-arrivals" className="section-padding">
         <div className="container">
           <div className="section-header">
             <h2 className="text-3xl">Lanzamientos Recientes</h2>
           </div>
           <div className="product-grid">
             {newArrivals.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} showQuickAdd={false} />
             ))}
             {newArrivals.length === 0 && (
               <p className="text-muted text-sm">Aún no hay lanzamientos recientes.</p>

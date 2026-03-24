@@ -160,9 +160,9 @@ export const Checkout = () => {
                 <h3 className="text-lg fw-medium mb-3 flex items-center gap-2">
                   <CreditCard size={18} /> Información de Pago
                 </h3>
-                <div style={{ backgroundColor: 'rgba(0,0,0,0.03)', padding: '1.25rem', borderRadius: 'var(--radius-md)' }}>
+                <div style={{ backgroundColor: 'rgba(0,0,0,0.03)', padding: '1.25rem', borderRadius: 'var(--radius-md)', width: '100%', boxSizing: 'border-box' }}>
                   <p className="text-sm fw-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Alias para transferencia:</p>
-                  <p className="text-xl fw-bold" style={{ letterSpacing: '0.02em' }}>986480460 - Numero de Telefono</p>
+                  <p className="text-xl fw-bold" style={{ letterSpacing: '0.02em', wordBreak: 'break-word', overflowWrap: 'break-word' }}>986480460 - Numero de Telefono</p>
                   <p className="text-xs text-muted mt-2">Enviá el comprobante por WhatsApp luego de coordinar.</p>
                 </div>
               </div>
@@ -179,7 +179,7 @@ export const Checkout = () => {
                 size="lg"
                 fullWidth
                 loading={isSubmitting}
-                style={{ height: '60px', fontSize: '1.1rem' }}
+                style={{ height: 'auto', minHeight: '60px', fontSize: '1rem', whiteSpace: 'normal', wordBreak: 'break-word', padding: '0.75rem', lineHeight: '1.4' }}
               >
                 <MessageSquare size={20} style={{ marginRight: '8px' }} />
                 Confirmar Pedido por WhatsApp
