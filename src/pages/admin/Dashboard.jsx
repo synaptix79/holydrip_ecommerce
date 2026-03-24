@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Store, Package, ShoppingCart, Tag, ArrowUpRight, CheckCircle, Clock, XCircle } from 'lucide-react';
 import { useData } from '../../context/DataContext';
-
+import './Admin.css';
 export const Dashboard = () => {
   const { allProducts, allCategories: categories, orders, getVisitCount } = useData();
   const [visitFilter, setVisitFilter] = useState('month');

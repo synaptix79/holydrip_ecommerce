@@ -230,7 +230,35 @@ export const SettingsAdmin = () => {
         {/* Apariencia y Notificaciones */}
         <div className="grid grid-cols-1 md-grid-cols-2 gap-8">
           
-          {/* Apariencia ya no está disponible (modo oscuro fijo) */}
+          {/* Apariencia */}
+          <div className="dashboard-panel glass-panel">
+            <div className="panel-header" style={{ padding: '1.25rem 1.5rem' }}>
+              <h3 className="text-lg fw-medium flex items-center gap-2"><Palette size={18} /> Apariencia</h3>
+            </div>
+            <div className="panel-body" style={{ padding: '1.5rem' }}>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="fw-medium">Tema Oscuro</p>
+                  <p className="text-sm text-muted mt-1">Forzar modo oscuro en admin.</p>
+                </div>
+                <button 
+                  onClick={toggleTheme}
+                  style={{
+                    width: '44px', height: '26px', borderRadius: '13px',
+                    backgroundColor: isDark ? 'var(--text-primary)' : 'var(--border-color)',
+                    position: 'relative', cursor: 'pointer', border: 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <div style={{
+                    width: '20px', height: '20px', borderRadius: '50%', backgroundColor: 'var(--bg-primary)',
+                    position: 'absolute', top: '3px', left: isDark ? '21px' : '3px', transition: 'left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                  }} />
+                </button>
+              </div>
+            </div>
+          </div>
 
           {/* Alertas */}
           <div className="dashboard-panel glass-panel">

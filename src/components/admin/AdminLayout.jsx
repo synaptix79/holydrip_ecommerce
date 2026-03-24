@@ -5,7 +5,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
 import '../layout/Navbar.css'; // Reusing exact navbar styles
 import './AdminLayout.css';
-
+import '../../pages/admin/Admin.css';
 export const AdminLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
@@ -53,6 +53,9 @@ export const AdminLayout = () => {
           </nav>
 
           <div className="navbar-actions border-left-mobile">
+             <button className="navbar-icon-btn" onClick={toggleTheme} aria-label="Cambiar tema">
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <div className="admin-avatar desktop-only" style={{ marginLeft: '1rem', width: '32px', height: '32px', borderRadius: '50%', overflow: 'hidden' }}>
               <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="Admin" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
