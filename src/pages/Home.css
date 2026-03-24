@@ -67,38 +67,44 @@
 .hero-content {
   position: relative;
   z-index: 10;
-  max-width: 600px;
-  padding-top: var(--nav-height); /* Offset the negative margin from section */
+  max-width: 650px;
+  padding-top: var(--nav-height); 
+  padding-bottom: 12vh;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .hero-verse-container {
   position: absolute;
-  top: calc(var(--nav-height) + 2rem);
-  right: 0;
+  top: calc(var(--nav-height) + 4rem);
+  right: 1.5rem;
   width: auto;
-  max-width: 350px;
+  max-width: 380px;
   z-index: 20;
   animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
   opacity: 0;
 }
 
 .verse-block {
-  padding: 1.5rem;
+  padding: 1.7rem;
   border-radius: var(--radius-md);
   text-align: right;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .verse-text {
   font-family: var(--font-primary);
   font-style: italic;
-  font-size: 1.1rem;
-  line-height: 1.5;
-  color: var(--text-primary);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #fff;
   margin-bottom: 0.75rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .verse-ref {
@@ -106,8 +112,8 @@
   font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 1024px) {
@@ -115,12 +121,17 @@
     position: relative;
     top: 0;
     right: 0;
-    margin: 0 auto 3rem auto;
+    margin: calc(var(--nav-height) + 2rem) auto 2rem auto;
     max-width: 100%;
     text-align: center;
   }
   .verse-block {
     text-align: center;
+  }
+  .hero-content {
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 6rem;
   }
 }
 
@@ -128,6 +139,8 @@
   .hero-content {
     text-align: center;
     margin: 0 auto;
+    justify-content: center;
+    padding-bottom: 5rem;
   }
   .hero-actions {
     justify-content: center;

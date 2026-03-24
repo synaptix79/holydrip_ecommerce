@@ -57,7 +57,7 @@ export const Home = () => {
           <div className="hero-overlay"></div>
         </div>
 
-        <div className="container hero-content">
+        <div className="container" style={{ height: '100%', position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column' }}>
           <div className="hero-verse-container">
             {randomVerse && (
               <div className="verse-block glass-panel">
@@ -66,23 +66,25 @@ export const Home = () => {
               </div>
             )}
           </div>
-          <h1 className="hero-title text-5xl">Vestí con<br />propósito.</h1>
-          <p className="hero-subtitle text-lg">Indumentaria Premium diseñada para reflejar tu esencia y propósito</p>
-          <div className="hero-actions">
-            <Link to="/shop">
-              <Button variant="primary" size="lg">Ver Colección</Button>
-            </Link>
-            <Button 
-              variant="secondary" 
-              className="glass-btn" 
-              size="lg"
-              onClick={() => {
-                const el = document.getElementById('new-arrivals');
-                if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              Recién Llegado
-            </Button>
+          <div className="hero-content">
+            <h1 className="hero-title text-5xl">Vestí con<br />propósito.</h1>
+            <p className="hero-subtitle text-lg">Indumentaria Premium diseñada para reflejar tu esencia y propósito</p>
+            <div className="hero-actions">
+              <Link to="/shop">
+                <Button variant="primary" size="lg">Ver Colección</Button>
+              </Link>
+              <Button 
+                variant="secondary" 
+                className="glass-btn" 
+                size="lg"
+                onClick={() => {
+                  const el = document.getElementById('new-arrivals');
+                  if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+              >
+                Recién Llegado
+              </Button>
+            </div>
           </div>
         </div>
       </section>
